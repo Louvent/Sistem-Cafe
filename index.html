@@ -23,16 +23,70 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #f8f3e8;
+      background-color: #f8efde;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 5px;
     }
 
     .nav-logo {
       height: 45px;
       width: auto;
       display: flex;
+      padding-left: 15px;
     }
 
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+      padding-right: 28px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #132e4f;
+      font-weight: 500;
+    }
+
+    .footer {
+      background-color: #132e4f;
+      color: #f5ebe0;
+      padding: 40px 32px 20px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      height: 50px;
+      width: auto;
+      margin-bottom: 12px;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .footer-col p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #d5bdaf;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid #4a3b35;
+      margin-top: 28px;
+      padding-top: 16px;
+      font-size: 0.85rem;
+      color: #a99282;
+    }
   </style>
 </head>
 
@@ -40,7 +94,7 @@
   <header>
     <nav class="navbar">
       <a href="index.html" class="nav-brand">
-        <img src="" alt="Logo We.Coffe" class="nav-logo">
+        <img src="Logo We.Coffe and Text.jpeg" alt="Logo We.Coffe" class="nav-logo">
       </a>
 
       <ul class="nav-links">
@@ -52,8 +106,30 @@
       </ul>
     </nav>
   </header>
+
   <footer class="footer">
-    <p>&copy; 2026 We.Coffe Team. Dibuat untuk Pembelajaran Web.</p>
+    <div class="footer-container">
+      <div class="footer-col">
+        <img src="Logo We.Coffe and Text.jpeg" alt="Logo Sistem Cafe" class="footer-logo">
+        <p>Tempat santai menikmati kopi pilihan dan hidangan hangat setiap hari.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <p>Senin – Jumat: 08.00 – 22.00 WIB</p>
+        <p>Sabtu – Minggu: 09.00 – 23.00 WIB</p>
+        <p>Jl. Kopi Nusantara No. 12</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <p>Instagram: @</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 We.Coffe, Dibuat dengan tujuan pembelajaran.</p>
+    </div>
   </footer>
 </body>
 
