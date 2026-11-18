@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -5,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>We.Coffe</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -12,146 +14,718 @@
       padding: 0;
     }
 
+    :root {
+      --cream: #f8efde;
+      --cream-light: #fffaf2;
+      --navy: #132e4f;
+      --orange: #d45522;
+      --brown: #8b654c;
+      --text: #493c32;
+    }
+
     body {
-      font-family: sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      background: var(--cream-light);
+      color: var(--text);
+    }
+
+    /* 
+       NAVBAR */
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--cream);
+      box-shadow: 0 3px 15px rgba(19, 46, 79, 0.08);
     }
 
     .navbar {
+      max-width: 1400px;
+      min-height: 80px;
+      margin: auto;
+      padding: 10px 5%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      background-color: #f8efde;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      padding: 5px;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
     }
 
     .nav-logo {
-      height: 45px;
+      height: 48px;
       width: auto;
-      display: flex;
-      padding-left: 15px;
+      object-fit: contain;
     }
 
     .nav-links {
       display: flex;
+      align-items: center;
+      gap: 8px;
       list-style: none;
-      gap: 24px;
-      padding-right: 28px;
     }
 
     .nav-links a {
-      text-decoration: none;
-      color: #132e4f;
-      font-weight: 500;
+      position: relative;
       display: inline-block;
-      padding: 10px 16px;
-      border-radius: 10px;
-
-      transition:
-        background-color 0.3s ease,
-        color 0.3s ease,
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+      text-decoration: none;
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 14px;
+      transition: color 0.3s ease;
     }
 
-    .nav-links a:hover {
-      background-color: #132e4f;
-      color: #d45522;
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: 5px;
+      left: 14px;
+      width: 0;
+      height: 2px;
+      background: var(--orange);
+      border-radius: 5px;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: calc(100% - 28px);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--orange);
+    }
+
+    /* SEARCH */
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-search {
+      display: flex;
+      align-items: center;
+      background: white;
+      border: 1px solid #e5d8c5;
+      border-radius: 50px;
+      padding: 5px 6px 5px 16px;
+      transition: 0.3s;
+    }
+
+    .nav-search:focus-within {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(212, 85, 34, 0.1);
+    }
+
+    .nav-search input {
+      width: 145px;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 12px;
+      color: var(--navy);
+    }
+
+    .nav-search input::placeholder {
+      color: #999;
+    }
+
+    .nav-search button {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      font-size: 21px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .nav-search button:hover {
+      background: var(--orange);
+      transform: scale(1.08);
+    }
+
+    /* CART */
+
+    .cart-button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      text-decoration: none;
+      font-size: 17px;
+      transition: 0.3s;
+    }
+
+    .cart-button:hover {
+      background: var(--orange);
       transform: translateY(-3px);
-      box-shadow: 0 5px 12px rgba(19, 46, 79, 0.15);
     }
 
-    .nav-links a:active {
-      transform: translateY(-1px) scale(0.97);
+    .cart-button span {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      min-width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      background: var(--orange);
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50px;
+      border: 2px solid var(--cream);
     }
+
+    /*
+       MAIN LAYOUT*/
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      max-width: 1250px;
+      min-height: 480px;
+      margin: 45px auto;
+      padding: 65px 7%;
+      background: var(--cream);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 550px;
+      z-index: 1;
+    }
+
+    .hero-label {
+      display: inline-block;
+      color: var(--orange);
+      background: #f4dfcb;
+      padding: 9px 17px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 22px;
+    }
+
+    .hero-content h1 {
+      color: var(--navy);
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.15;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .hero-content h1 span {
+      color: var(--orange);
+    }
+
+    .hero-content p {
+      color: #78675a;
+      font-size: 16px;
+      line-height: 1.8;
+      max-width: 460px;
+      margin-bottom: 30px;
+    }
+
+    .hero-button {
+      display: inline-block;
+      text-decoration: none;
+      background: var(--navy);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .hero-button:hover {
+      background: var(--orange);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(212, 85, 34, 0.2);
+    }
+
+    .hero-decoration {
+      width: 340px;
+      height: 340px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #ead5b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-decoration::before {
+      content: "";
+      position: absolute;
+      width: 270px;
+      height: 270px;
+      border: 2px dashed rgba(19, 46, 79, 0.25);
+      border-radius: 50%;
+    }
+
+    .coffee-icon {
+      font-size: 130px;
+      z-index: 1;
+      filter: drop-shadow(0 12px 12px rgba(19, 46, 79, 0.15));
+    }
+
+    /*
+       INFORMATION SECTION*/
+
+    .info-section {
+      max-width: 1150px;
+      margin: 70px auto;
+      padding: 0 25px;
+      text-align: center;
+    }
+
+    .section-label {
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .info-section h2 {
+      color: var(--navy);
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .info-section > p {
+      max-width: 650px;
+      margin: auto;
+      line-height: 1.8;
+      color: #88796c;
+      font-size: 14px;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 40px;
+    }
+
+    .info-card {
+      background: white;
+      padding: 30px 22px;
+      border: 1px solid #f0e6d8;
+      border-radius: 18px;
+      transition: 0.3s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 12px 30px rgba(19, 46, 79, 0.08);
+    }
+
+    .info-card .icon {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    .info-card h3 {
+      color: var(--navy);
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    .info-card p {
+      color: #88796c;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* 
+       FOOTER*/
 
     .footer {
-      background-color: #132e4f;
+      background: var(--navy);
       color: #f5ebe0;
-      padding: 40px 32px 20px;
+      padding: 55px 32px 20px;
+      margin-top: 70px;
     }
 
     .footer-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 32px;
-      max-width: 1100px;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 45px;
+      max-width: 1150px;
       margin: 0 auto;
     }
 
     .footer-logo {
       height: 50px;
       width: auto;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
       border-radius: 10px;
     }
 
     .footer-col h4 {
-      margin-bottom: 12px;
-      color: #d45522;
+      margin-bottom: 18px;
+      color: var(--orange);
+      font-size: 16px;
     }
 
     .footer-col p {
-      font-size: 0.9rem;
-      line-height: 1.6;
+      font-size: 13px;
+      line-height: 1.9;
       color: #d5bdaf;
     }
 
     .footer-bottom {
       text-align: center;
-      border-top: 1px solid #d45522;
-      margin-top: 28px;
-      padding-top: 16px;
-      font-size: 0.85rem;
-      color: #d45522;
+      border-top: 1px solid rgba(212, 85, 34, 0.5);
+      margin: 40px auto 0;
+      padding-top: 20px;
+      max-width: 1150px;
+      font-size: 12px;
+      color: #d5bdaf;
     }
+
+    /*
+       RESPONSIVE*/
+
+    @media (max-width: 1000px) {
+
+      .navbar {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-actions {
+        margin-left: auto;
+      }
+
+      .hero {
+        margin: 30px 20px;
+      }
+
+      .hero-decoration {
+        width: 260px;
+        height: 260px;
+      }
+
+      .coffee-icon {
+        font-size: 100px;
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      .navbar {
+        padding: 12px 4%;
+      }
+
+      .nav-logo {
+        height: 38px;
+      }
+
+      .nav-links {
+        gap: 2px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 5px 0;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+        padding: 10px 9px;
+        white-space: nowrap;
+      }
+
+      .nav-search input {
+        width: 105px;
+      }
+
+      .nav-actions {
+        gap: 8px;
+      }
+
+      .cart-button {
+        width: 38px;
+        height: 38px;
+      }
+
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 45px 25px;
+        gap: 35px;
+      }
+
+      .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-decoration {
+        width: 220px;
+        height: 220px;
+      }
+
+      .hero-decoration::before {
+        width: 175px;
+        height: 175px;
+      }
+
+      .coffee-icon {
+        font-size: 85px;
+      }
+
+      .info-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .info-section {
+        margin: 50px auto;
+      }
+
+      .info-section h2 {
+        font-size: 25px;
+      }
+
+      .footer {
+        padding: 40px 22px 20px;
+        margin-top: 45px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
-  <header>
+
+  <!-- HEADER -->
+  <header class="header">
+
     <nav class="navbar">
+
       <a href="index.html" class="nav-brand">
-        <img src="aset/Logo _We.Coffe_and_Text.jpeg" alt="Logo We.Coffe" class="nav-logo">
+        <img src="aset/Logo _We.Coffe_and_Text.jpeg"
+             alt="Logo We.Coffe"
+             class="nav-logo">
       </a>
 
       <ul class="nav-links">
-        <li><a href="index.html">Beranda</a></li>
-        <li><a href="">Menu</a></li>
-        <li><a href="">Pesanan (<span id="nav-cart-count">0</span>)</a></li>
-        <li><a href="">Bantuan</a></li>
-        <li><a href="">Tentang</a></li>
+        <li><a href="index.html" class="active">⌂ Beranda</a></li>
+        <li><a href="#menu">𑣲☕︎ Menu</a></li>
+        <li><a href="#pesanan">Pesanan</a></li>
+        <li><a href="#bantuan">? Bantuan</a></li>
+        <li><a href="#tentang">ⓘ Tentang</a></li>
       </ul>
+
+      <div class="nav-actions">
+
+        <div class="nav-search">
+          <input type="text"
+                 placeholder="Cari kopi favoritmu..."
+                 aria-label="Cari produk">
+
+          <button type="button" aria-label="Cari">
+            ⌕
+          </button>
+        </div>
+
+        <a href="#pesanan" class="cart-button" aria-label="Keranjang">
+          🛒
+          <span id="nav-cart-count">0</span>
+        </a>
+
+      </div>
+
     </nav>
+
   </header>
 
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <span class="hero-label">
+          WELCOME TO WE.COFFE
+        </span>
+
+        <h1>
+          Temukan Rasa,<br>
+          Nikmati <span>Suasana.</span>
+        </h1>
+
+        <p>
+          Tempat terbaik untuk menikmati secangkir kopi pilihan.
+          Hadirkan suasana hangat, rasa istimewa, dan momen
+          menyenangkan dalam setiap tegukan.
+        </p>
+
+        <a href="#menu" class="hero-button">
+          Jelajahi Menu →
+        </a>
+
+      </div>
+
+      <div class="hero-decoration">
+        <div class="coffee-icon"></div>
+      </div>
+
+    </section>
+
+
+    <!-- INFORMATION SECTION -->
+    <section class="info-section" id="tentang">
+
+      <div class="section-label">
+        ABOUT WE.COFFE
+      </div>
+
+      <h2>Lebih dari Sekadar Kopi</h2>
+
+      <p>
+        We.Coffe hadir sebagai tempat untuk menikmati kopi,
+        bersantai, dan berbagi cerita. Setiap momen menjadi
+        lebih bermakna dengan secangkir kopi pilihan.
+      </p>
+
+      <div class="info-cards">
+
+        <div class="info-card">
+          <div class="icon">☕</div>
+          <h3>Kopi Berkualitas</h3>
+          <p>
+            Menikmati pengalaman kopi dengan pilihan rasa
+            yang istimewa.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="icon">♡</div>
+          <h3>Suasana Hangat</h3>
+          <p>
+            Tempat nyaman untuk bersantai dan menghabiskan
+            waktu bersama.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="icon">✦</div>
+          <h3>Pengalaman Berkesan</h3>
+          <p>
+            Menghadirkan pengalaman sederhana yang
+            menyenangkan setiap hari.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
   <footer class="footer">
+
     <div class="footer-container">
+
       <div class="footer-col">
-        <img src="aset/Logo%20_We.Coffe_and_Text.jpeg" alt="Logo Sistem Cafe" class="footer-logo">
-        <p>Tempat santai menikmati kopi pilihan dan hidangan hangat setiap hari.</p>
+
+        <img src="aset/Logo%20_We.Coffe_and_Text.jpeg"
+             alt="Logo Sistem Cafe"
+             class="footer-logo">
+
+        <p>
+          Tempat santai menikmati kopi pilihan
+          dan hidangan hangat setiap hari.
+        </p>
+
       </div>
 
       <div class="footer-col">
+
         <h4>Informasi</h4>
+
         <p>Senin – Jumat: 08.00 – 22.00 WIB</p>
         <p>Sabtu – Minggu: 09.00 – 23.00 WIB</p>
         <p>Jl. Kopi Nusantara No. 12</p>
+
       </div>
 
       <div class="footer-col">
+
         <h4>Kontak</h4>
-        <p>Instagram: @_ihzaaa11 @dvnialn.dev @wildandelmizo -RUMTEAM</p>
+
+        <p>
+          Instagram: @_ihzaaa11
+          @dvnialn.dev
+          @wildandelmizo
+          @dz1rm
+        </p>
+
       </div>
+
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2026 We.Coffe, Dibuat dengan tujuan pembelajaran.</p>
-    </div>
-  </footer>
-</body>
 
+      <p>
+        &copy; 2026 We.Coffe,
+        Dibuat dengan tujuan pembelajaran.
+      </p>
+
+    </div>
+
+  </footer>
+
+</body>
 </html>
